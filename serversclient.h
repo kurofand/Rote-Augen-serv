@@ -23,7 +23,7 @@ public:
 private:
     QTcpSocket *_sok;
     Server *_serv;
-	quint16 _blockSize;
+	quint32 _blockSize;
     bool _isAutched;
 	static const quint8 onSetClientActive=1;
 	static const quint8 onSetClientName=2;

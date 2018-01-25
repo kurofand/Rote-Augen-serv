@@ -26,6 +26,7 @@ public slots:
 	void addUserToGUI(QString name, QColor color);
 	void addMessageToGUI(QString mess, QColor color);
 	void changeEnableGUI(bool isActive);
+	void onRemoveUserFromGUI(QString name);
 
 private slots:
 	void on_pbStart_clicked();

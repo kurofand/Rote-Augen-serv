@@ -45,7 +45,6 @@ void ScreenServerMain::on_pbStart_clicked()
 	QString user=ui->lwUserList->selectedItems()[0]->text();
 	quint32 sec=ui->sbInterval->value();
 	emit startClient(user, sec);
-	//ui->lwUserList->item(ui->lwUserList->selectedItems())->setTextColor(Qt::green);
 }
 
 void ScreenServerMain::on_pbStop_clicked()
@@ -84,6 +83,17 @@ void ScreenServerMain::changeEnableGUI(bool isActive)
 		ui->sbInterval->setEnabled(true);
 		ui->pbStop->setEnabled(false);
 	}
+}
+
+void ScreenServerMain::onRemoveUserFromGUI(QString name)
+{
+	for(int i=0;i<ui->lwUserList->count();i++)
+		if(ui->lwUserList->item(i)->text()==name)
+		{
+			ui->lwUserList->takeItem(i);
+			ui->lwServerLog->addItem(QTime::currentTime().toString()+" "+name+" left");
+			ui->lwServerLog->item(ui->lwServerLog->count()-1)->setTextColor(Qt::red);
+		}
 }
 
 ScreenServerMain::~ScreenServerMain()
