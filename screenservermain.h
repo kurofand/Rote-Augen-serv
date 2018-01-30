@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTime>
 #include "server.h"
+#include <QInputDialog>
 class Server;
 namespace Ui {
 class ScreenServerMain;
@@ -31,11 +32,14 @@ public slots:
 private slots:
 	void on_pbStart_clicked();
 	void on_pbStop_clicked();
-	void on_lwUserList_itemSelectionChanged();
+	void on_lwUserList_itemClicked();
+    void on_pbChangeUName_clicked();
+	void on_pbSaveLog_clicked();
 
 signals:
 	void startClient(QString user, quint32 sec);
 	void stopClient(QString user);
+    void changeClientName(QString oldName, QString newName);
 };
 
 #endif // SCREENSERVERMAIN_H

@@ -26,6 +26,7 @@ public slots:
     void onRemoveUser(serversClient *client);
 	void startClient(QString name, quint32 sec);
 	void stopClient(QString name);
+    void changeClientName(QString oldName, QString newName);
 };
 
 #endif // SERVER_H

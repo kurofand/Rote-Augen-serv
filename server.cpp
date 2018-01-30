@@ -8,9 +8,10 @@ Server::Server(QWidget *widget, QObject *parent) :
 
 bool Server::doStartServer(QHostAddress addr, qint16 port)
 {
-    if(!listen(addr, port))
+    if(!this->listen(addr, port))
     {
         qDebug()<<"Server not started";
+        qDebug()<<this->errorString();
         return false;
     }
     qDebug()<<"Server started at"<<addr<<":"<<port;
@@ -62,4 +63,19 @@ void Server::stopClient(QString name)
 			out<<(quint32)(block.size()-sizeof(quint32));
 			_clients[i]->_sok->write(block);
 		}
+}
+
+void Server::changeClientName(QString oldName, QString newName)
+{
+    for(quint16 i=0;i<_clients.length();i++)
+        if(_clients[i]->_name==oldName)
+        {
+			_clients[i]->_name=newName;
+            QByteArray block;
+            QDataStream out(&block, QIODevice::WriteOnly);
+            out<<(quint32)0<<_clients[i]->onSetClientName<<newName;
+            out.device()->seek(0);
+            out<<(quint32)(block.size()-sizeof(quint32));
+            _clients[i]->_sok->write(block);
+        }
 }
